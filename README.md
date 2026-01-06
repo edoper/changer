@@ -28,12 +28,16 @@ install.packages(setdiff(pkgs, rownames(installed.packages())))
 ## Quick start (with example TSVs)
 
 Ensure gene_summary.tsv and the folder by_gene_MANE_SELECT/ are in the project root.
+
 (Recommended) Build a single SQLite database:
-Rscript build_gene_db.R
+```Rscript build_gene_db.R
+```
+
 The app prefers SQLite when present; otherwise it falls back to TSVs + gene_summary.tsv.
 
 Run the app:
-shiny::runApp(".")
+```shiny::runApp(".")
+```
 In the Search box, type a gene symbol matching one of the example TSV filenames (without .tsv).
 
 **Data expectations (minimal)**
