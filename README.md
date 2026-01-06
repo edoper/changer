@@ -43,11 +43,15 @@ shiny::runApp(".")
 In the Search box, type a gene symbol matching one of the example TSV filenames (without .tsv).
 
 **Data expectations (minimal)**
+
 Gene summary: SYMBOL/gene, Transcript, strand, num_coding_exons, cds_length, blockSizes.
+
 Per-gene TSVs: standard annotations (VEP, LOFTEE, REVEL, CADD, AlphaMissense, EVE, gnomAD) and AC, AN, #CHROM, POS, REF, ALT.
 
 **Deploy (optional)**
 Deploy to shinyapps.io:
+```
 rsconnect::deployApp(".")
+```
 
 If using SQLite, you can omit by_gene_MANE_SELECT/ from the bundle and deploy only the app files, by_gene.sqlite, and gene_summary.tsv.
