@@ -1,5 +1,5 @@
 # CHANGER Dashboard (R Shiny)
-Explore aggregated coding genetic variants from 902 Chilean exomes
+Explore aggregated coding genetic variants from 902 Chilean exomes using the dashboard https://lngc.shinyapps.io/changer_v1/
 
 ---
 
