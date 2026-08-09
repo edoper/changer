@@ -3,6 +3,22 @@ Explore aggregated coding genetic variants from 902 Chilean exomes using the das
 
 ---
 
+## Variant badges
+
+| Badge | Definition |
+|---|---|
+| **In-gnomAD** | Present in gnomAD v4.1 joint (exomes+genomes, variants passing filters in at least one callset), assessed within MANE Select territory (exons ±10 bp). |
+| **CHL-novel** | Previously unreported: absent from gnomAD v4.1 joint, assessed within MANE Select territory. |
+| **Damaging** | REVEL ≥ 0.75, or CADD_PHRED ≥ 20, or AlphaMissense (likely_)pathogenic, or EVE pathogenic, or LOFTEE high-confidence LoF. |
+| **CHL-common** | Allele count ≥ 9 in CHANGER (n = 902). |
+
+Variants outside MANE Select territory carry neither In-gnomAD nor CHL-novel,
+because the region-restricted gnomAD reference cannot establish their
+presence or absence. Badges are annotations; no variant is removed from the
+resource.
+
+---
+
 ## Contents
 - [`ui.R`](ui.R) — UI layout.
 - [`server.R`](server.R) — Server logic (loading, flags, filters, plot, variants table).

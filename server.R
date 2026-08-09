@@ -39,9 +39,15 @@ compute_flags <- function(df) {
   AC         <- suppressWarnings(as.numeric(safe_col(df, "AC")))
   AN         <- suppressWarnings(as.numeric(safe_col(df, "AN")))
   gAC        <- suppressWarnings(as.numeric(safe_col(df, "gnomADj_AC_joint")))
-  
+
   CHANGER_AF <- ifelse(!is.na(AC) & !is.na(AN) & AN > 0, AC / AN, NA_real_)
-  not_in_gnomad <- is.na(gAC) | gAC == 0
+  # gnomAD badges are assessed ONLY within MANE Select territory (exons
+  # +/-10bp), the regions covered by the gnomAD v4.1 joint reference
+  # (exomes+genomes, at-least-one-PASS). Off-territory variants carry
+  # neither In-gnomAD nor CHL-novel.
+  in_territory <- safe_col(df, "MANE_TERRITORY") %in% c(TRUE, "TRUE", 1)
+  in_gnomad    <- in_territory & !is.na(gAC) & gAC > 0
+  chl_novel    <- in_territory & (is.na(gAC) | gAC == 0)
   
   miss_damaging <- (!is.na(REVEL)      & REVEL >= 0.75) |
     (!is.na(CADD_PHRED) & CADD_PHRED >= 20) |
@@ -53,7 +59,8 @@ compute_flags <- function(df) {
   
   tibble(
     CHANGER_AF       = CHANGER_AF,
-    FLAG_NOT_GNOMAD  = not_in_gnomad,
+    FLAG_IN_GNOMAD   = in_gnomad,
+    FLAG_CHL_NOVEL   = chl_novel,
     FLAG_DAMAGING    = miss_damaging,
     FLAG_COMMON      = common_changer
   )
@@ -269,7 +276,8 @@ shinyServer(function(input, output, session) {
     flags <- compute_flags(df)
     df %>% mutate(
       CHANGER_AF       = flags$CHANGER_AF,
-      FLAG_NOT_GNOMAD  = flags$FLAG_NOT_GNOMAD,
+      FLAG_IN_GNOMAD   = flags$FLAG_IN_GNOMAD,
+      FLAG_CHL_NOVEL   = flags$FLAG_CHL_NOVEL,
       FLAG_DAMAGING    = flags$FLAG_DAMAGING,
       FLAG_COMMON      = flags$FLAG_COMMON
     )
@@ -293,7 +301,8 @@ shinyServer(function(input, output, session) {
     fset <- input$filters %||% character(0)
     if ("f_lofhc"    %in% fset) df <- df %>% filter(LoF == "HC")
     if ("f_dmg"      %in% fset) df <- df %>% filter(FLAG_DAMAGING)
-    if ("f_nognomad" %in% fset) df <- df %>% filter(FLAG_NOT_GNOMAD)
+    if ("f_ingnomad" %in% fset) df <- df %>% filter(FLAG_IN_GNOMAD)
+    if ("f_nognomad" %in% fset) df <- df %>% filter(FLAG_CHL_NOVEL)
     if ("f_common"   %in% fset) df <- df %>% filter(FLAG_COMMON)
     df
   })
@@ -327,8 +336,8 @@ shinyServer(function(input, output, session) {
       n_missense = "<b>Missense:</b>",
       n_missense_damaging = "<b>Missense damaging:</b>",
       n_loftee_hc = "<b>Loss of function (HC):</b>",
-      n_not_in_gnomAD = "<b>Not in gnomAD:</b>",
-      n_changer_common = "<b>Common in Changer (≥1%):</b>"
+      n_not_in_gnomAD = "<b>CHL-novel:</b>",
+      n_changer_common = "<b>CHL-common (AC ≥ 9):</b>"
     )
     df <- data.frame(Metric = unname(labels[keep]), Value  = as.vector(t(row[1, keep, drop = FALSE])), stringsAsFactors = FALSE)
     sym_col <- if ("gene" %in% names(row)) "gene" else if ("SYMBOL" %in% names(row)) "SYMBOL" else NA_character_
@@ -375,8 +384,7 @@ shinyServer(function(input, output, session) {
     pos <- safe_col(df, "POS"); ref <- safe_col(df, "REF"); alt <- safe_col(df, "ALT")
     variant_id <- ifelse(!is.na(chrom_clean) & !is.na(pos) & !is.na(ref) & !is.na(alt),
                          paste(chrom_clean, pos, ref, alt, sep = "-"), NA_character_)
-    flag_not_g <- safe_col(df, "FLAG_NOT_GNOMAD")
-    in_gnomad  <- !(flag_not_g %in% c(TRUE, "TRUE", 1)); in_gnomad[is.na(in_gnomad)] <- FALSE
+    in_gnomad <- safe_col(df, "FLAG_IN_GNOMAD") %in% c(TRUE, "TRUE", 1)
     df$Variant <- ifelse(!is.na(variant_id) & in_gnomad,
                          paste0('<a href="https://gnomad.broadinstitute.org/variant/', variant_id,
                                 '?dataset=gnomad_r4" target="_blank" rel="noopener">', variant_id, '</a>'),
@@ -392,10 +400,11 @@ shinyServer(function(input, output, session) {
              '" style="display:inline-block;min-width:1.2em;padding:0 6px;margin-right:4px;border-radius:12px;',
              'background:', bg, ';color:#fff;font-weight:600;line-height:1.2;">', txt, '</span>')
     }
-    flag_ng <- ifelse(safe_col(df, "FLAG_NOT_GNOMAD") %in% TRUE, to_badge("Novel", "#6c757d", "Not in gnomAD"), "")
+    flag_ig <- ifelse(safe_col(df, "FLAG_IN_GNOMAD") %in% TRUE, to_badge("In-gnomAD", "#1f78b4", "Present in gnomAD v4.1 (exomes+genomes)"), "")
+    flag_ng <- ifelse(safe_col(df, "FLAG_CHL_NOVEL") %in% TRUE, to_badge("CHL-novel", "#6c757d", "Previously unreported: absent from gnomAD v4.1 within MANE Select territory"), "")
     flag_d  <- ifelse(safe_col(df, "FLAG_DAMAGING")  %in% TRUE, to_badge("Damaging", "#d62728", "Damaging"), "")
-    flag_c  <- ifelse(safe_col(df, "FLAG_COMMON")    %in% TRUE, to_badge("Common", "#2ca02c", "Common (AF ≥ 1%)"), "")
-    df_sub$Flags <- paste0(flag_ng, flag_d, flag_c); df_sub$Flags[nchar(df_sub$Flags) == 0] <- ""
+    flag_c  <- ifelse(safe_col(df, "FLAG_COMMON")    %in% TRUE, to_badge("CHL-common", "#2ca02c", "Common in CHANGER (AC ≥ 9)"), "")
+    df_sub$Flags <- paste0(flag_ig, flag_ng, flag_d, flag_c); df_sub$Flags[nchar(df_sub$Flags) == 0] <- ""
     df_sub <- dplyr::relocate(df_sub, Flags, .after = "Variant")
     display_names <- c(
       "Variant"="Variant","Flags"="Flags","AC"="Allele count","AN"="Allele number","AC_Hom"="Number homozygotes",

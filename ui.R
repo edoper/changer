@@ -102,9 +102,10 @@ shinyUI(
               inline  = FALSE,
               choices = c(
                 "Loss of function (HC)" = "f_lofhc",
-                "Missense damaging"    = "f_dmg",
-                "Not in gnomAD"        = "f_nognomad",
-                "Common (AF ≥ 1%)"     = "f_common"
+                "Missense damaging"     = "f_dmg",
+                "In gnomAD"             = "f_ingnomad",
+                "CHL-novel"             = "f_nognomad",
+                "CHL-common (AC ≥ 9)"   = "f_common"
               ),
               selected = NULL
             ),
