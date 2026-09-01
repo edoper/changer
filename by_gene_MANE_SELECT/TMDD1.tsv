@@ -1,4 +1,0 @@
-#CHROM	POS	ID	REF	ALT	AC	AN	AC_Hom	Consequence	SYMBOL	STRAND	Gene	HGVSc	HGVSp	EXON	Protein_position	Amino_acids	Codons	LoF	am_class	am_pathogenicity	EVE_CLASS	EVE_SCORE	CADD_PHRED	REVEL	gnomADj_AC_joint	gnomADj_AN_joint	gnomADj_AF_joint	gnomADj_nhomalt_joint	MANE_TERRITORY
-chr12	51810254	rs778124778;rs201910276	TA	AA	1	122	0	downstream_gene_variant	TMDD1	-1	ENSG00000284730												0.010		3258	237530	0.0137162	104	TRUE
-chr12	51810294	rs753036537	T	A	1	128	0	downstream_gene_variant	TMDD1	-1	ENSG00000284730												1.152		310	271988	0.00113976	2	TRUE
-chr12	51810462	rs172559	T	C	120	126	114	downstream_gene_variant	TMDD1	-1	ENSG00000284730												7.315		380879	448856	0.848555	162886	TRUE

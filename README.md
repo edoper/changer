@@ -25,7 +25,7 @@ resource.
 - [`build_gene_db.R`](build_gene_db.R) — Builds a single SQLite DB (`by_gene.sqlite`) from per-gene TSVs.
 - [`gene_summary.tsv`](gene_summary.tsv) — Gene-level summary (MANE transcript metadata and counts).
 - [`gene_names.txt`](gene_names.txt) — Optional map from `SYMBOL` → full gene name.
-- [`by_gene_MANE_SELECT/`](by_gene_MANE_SELECT/) — with three examples per-gene TSVs for local testing.
+- [`by_gene_MANE_SELECT/`](by_gene_MANE_SELECT/) — with one example per-gene TSV (BRCA1) for local testing.
 
 ---
 
@@ -41,7 +41,7 @@ pkgs <- c("shiny","shinythemes","shinyWidgets","DT","shinycssloaders","shinyaler
 install.packages(setdiff(pkgs, rownames(installed.packages())))
 ```
 
-## Quick start (with example TSVs)
+## Quick start (with the example TSV)
 
 Ensure gene_summary.tsv and the folder by_gene_MANE_SELECT/ are in the project root.
 
@@ -56,7 +56,7 @@ Run the app:
 ```
 shiny::runApp(".")
 ```
-In the Search box, type a gene symbol matching one of the example TSV filenames (without .tsv).
+In the Search box, type BRCA1 (the example TSV).
 
 **Data expectations (minimal)**
 
