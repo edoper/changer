@@ -104,8 +104,8 @@ shinyUI(
                 "Loss of function (HC)" = "f_lofhc",
                 "Missense damaging"     = "f_dmg",
                 "In gnomAD"             = "f_ingnomad",
-                "CHL-novel"             = "f_nognomad",
-                "CHL-common (AC ≥ 9)"   = "f_common"
+                "CHANGER-specific"             = "f_nognomad",
+                "CHANGER-common (AC ≥ 9)"   = "f_common"
               ),
               selected = NULL
             ),
@@ -147,14 +147,14 @@ shinyUI(
                                         box-shadow: 3px 3px 3px #d8d8d8;
                                         margin-bottom: 0px; padding:5px"), 
                    wellPanel(p("Evelin González, Camilo Villamán, Boris Rebolledo-Jaramillo, Carlos Hernandez, Dominga Berrios, Gabriela Moreno, Cecilia Poli, Juan Francisco Calderón, Paula Muñoz-Venturelli, Mario I. Fernández, Juan Alberto Lecaros, Ricardo Armisen, Gabriela M. Repetto, Eduardo Pérez-Palma",
-                               a("A novel genetic reference from 902 unrelated Chilean exomes to enhance South American medical genetics and research.", target="_blank", href="https://www.medrxiv.org/content/10.1101/2026.01.27.26344982v1"),
+                               a("A novel genetic reference from 902 unrelated Chilean exomes to enhance South American medical genetics and research.", target="_blank", href="https://www.medrxiv.org/content/10.64898/2026.01.27.26344982v1"),
                                "medRxiv, Jan 2026."),
                              br(),
                              p("We thank each dataset participant who consented to participate in this research, and the clinicians who presented candidates to each included study. CHANGER exists through the contribution of Chilean patients, families and unaffected volunteers across the seven contributing cohorts, and of the clinical and research teams who recruited, consented and characterized them."),
                              p(strong("Suggested acknowledgement for studies using CHANGER data: "),
                                em("\"The authors thank the participants, clinicians and research teams of the CHANGER initiative (https://lngc.shinyapps.io/changer_v1/) for making Chilean allele frequency data publicly available.\"")),
                              br(), 
-                             #p(icon("envelope", lib = "glyphicon"),"eduardoperez@udd.cl"),
+                             p("Contact ",icon("envelope", lib = "glyphicon"),":","eduardoperez@udd.cl"),
                              style = "background-color: #ffffff;
                                          border-color: #b2baba;
                                          box-shadow: 3px 3px 3px #d8d8d8;

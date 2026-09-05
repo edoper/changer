@@ -1,6 +1,8 @@
 # CHANGER Dashboard (R Shiny)
 Explore aggregated coding genetic variants from 902 Chilean exomes using the dashboard https://lngc.shinyapps.io/changer_v1/
 
+**Release v1** (GRCh38; 774,110 variants from 902 unrelated Chilean exomes; 18,222 MANE Select genes). Preprint: https://www.medrxiv.org/content/10.64898/2026.01.27.26344982v1
+
 ---
 
 ## Variant badges
@@ -8,11 +10,11 @@ Explore aggregated coding genetic variants from 902 Chilean exomes using the das
 | Badge | Definition |
 |---|---|
 | **In-gnomAD** | Present in gnomAD v4.1 joint (exomes+genomes, variants passing filters in at least one callset), assessed within MANE Select territory (exons ±10 bp). |
-| **CHL-novel** | Previously unreported: absent from gnomAD v4.1 joint, assessed within MANE Select territory. |
+| **CHANGER-specific** | CHANGER-specific relative to the reference datasets: absent from gnomAD v4.1 joint, assessed within MANE Select territory. |
 | **Damaging** | REVEL ≥ 0.75, or CADD_PHRED ≥ 20, or AlphaMissense (likely_)pathogenic, or EVE pathogenic, or LOFTEE high-confidence LoF. |
-| **CHL-common** | Allele count ≥ 9 in CHANGER (n = 902). |
+| **CHANGER-common** | Allele count of 9 or higher in CHANGER (n = 902). |
 
-Variants outside MANE Select territory carry neither In-gnomAD nor CHL-novel,
+Variants outside MANE Select territory carry neither In-gnomAD nor CHANGER-specific,
 because the region-restricted gnomAD reference cannot establish their
 presence or absence. Badges are annotations; no variant is removed from the
 resource.
