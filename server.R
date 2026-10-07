@@ -1,4 +1,4 @@
-# changer_app — SERVER
+# changer_app: SERVER
 
 library(shiny)
 library(readr)
@@ -307,7 +307,7 @@ shinyServer(function(input, output, session) {
     df
   })
   
-  # PC — resumen
+  # PC: resumen
   output$gene_summary_card <- renderDT({
     gs <- GS; g <- current_gene()
     if (is.null(gs)) return(datatable(data.frame(Message = "gene_summary.tsv not found"), options = list(dom="t"), rownames = FALSE))
@@ -357,7 +357,7 @@ shinyServer(function(input, output, session) {
               callback = DT::JS("$(table.table().header()).hide();"))
   })
   
-  # PD — tabla
+  # PD: tabla
   output$variants_table <- renderDT({
     df <- filtered_variants()
     if ("HGVSc" %in% names(df)) {
@@ -422,7 +422,7 @@ shinyServer(function(input, output, session) {
     )
   })
   
-  # PB — título y plot
+  # PB: título y plot
   output$pb_title <- renderUI({
     g <- current_gene()
     full_name <- get_full_gene_name(g, GN_TBL)

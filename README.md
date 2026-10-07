@@ -22,12 +22,12 @@ resource.
 ---
 
 ## Contents
-- [`ui.R`](ui.R) — UI layout.
-- [`server.R`](server.R) — Server logic (loading, flags, filters, plot, variants table).
-- [`build_gene_db.R`](build_gene_db.R) — Builds a single SQLite DB (`by_gene.sqlite`) from per-gene TSVs.
-- [`gene_summary.tsv`](gene_summary.tsv) — Gene-level summary (MANE transcript metadata and counts).
-- [`gene_names.txt`](gene_names.txt) — Optional map from `SYMBOL` → full gene name.
-- [`by_gene_MANE_SELECT/`](by_gene_MANE_SELECT/) — with one example per-gene TSV (BRCA1) for local testing.
+- [`ui.R`](ui.R): UI layout.
+- [`server.R`](server.R): Server logic (loading, flags, filters, plot, variants table).
+- [`build_gene_db.R`](build_gene_db.R): Builds a single SQLite DB (`by_gene.sqlite`) from per-gene TSVs.
+- [`gene_summary.tsv`](gene_summary.tsv): Gene-level summary (MANE transcript metadata and counts).
+- [`gene_names.txt`](gene_names.txt): Optional map from `SYMBOL` → full gene name.
+- [`by_gene_MANE_SELECT/`](by_gene_MANE_SELECT/): with one example per-gene TSV (BRCA1) for local testing.
 
 ---
 

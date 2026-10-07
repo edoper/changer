@@ -1,4 +1,4 @@
-# changer_app — UI
+# changer_app: UI
 
 library(shiny)
 library(shinythemes)
