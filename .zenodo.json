@@ -1,0 +1,15 @@
+{
+  "title": "CHANGER dashboard: source code (release v1)",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Pérez-Palma, Eduardo",
+      "affiliation": "Centro de Genética y Genómica, Facultad de Medicina Clínica Alemana, Universidad del Desarrollo, Santiago, Chile",
+      "orcid": "0000-0003-0546-5141"
+    }
+  ],
+  "description": "R Shiny dashboard to explore aggregated coding variants from 902 Chilean exomes (CHANGER, Chilean Aggregated National Genomics Resource), release v1, GRCh38.",
+  "license": "MIT",
+  "keywords": ["exome", "allele frequency", "Chile", "variant interpretation", "R Shiny"],
+  "version": "v1"
+}

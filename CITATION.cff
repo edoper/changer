@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "CHANGER dashboard: source code (release v1)"
+authors:
+  - family-names: "Pérez-Palma"
+    given-names: "Eduardo"
+    orcid: "https://orcid.org/0000-0003-0546-5141"
+version: "v1"
+license: MIT
+repository-code: "https://github.com/edoper/changer"
